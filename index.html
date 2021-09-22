@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link href="style.css" rel="stylesheet">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div id="sidebar">
+        <header><h1>LIBRARY</h1></header>
+
+        <form>
+            <div>
+                <input type="text" placeholder="Title" required autocomplete="off">
+                <p id="forTitle">* Required</p>
+            </div>
+            <div>
+                <input type="text" placeholder="Author" required autocomplete="off">
+                <p id="forAuthor">* Required</p>
+            </div>
+            <div>
+                <input type="number" placeholder="Pages" required autocomplete="off">
+                <p id="forPages">* Required</p>
+            </div>
+
+            <label id="readStatus">
+                <input type="checkbox" checked>
+                <span>I have read this book</span>
+            </label>
+
+            <button type="submit">ADD BOOK</button>
+        </form>
+
+        <footer>
+            <p style="margin: 8px;">Code by</p>
+            <a target="_blank" href="https://github.com/kru01"><img id="profile" src="images/githubPic.jpg"></a>
+            <a id="profileText" target="_blank" href="https://github.com/kru01">kru01</a>
+        </footer>
+    </div>
+
+    <main>
+        <div id="navbar">
+            <p id="booksRead">Books read: 0</p>
+            <p id="booksUnread">Books unread: 0</p>
+            <button id="clearData" type="button">CLEAR DATA</button>
+        </div>
+
+        <div id="bookList"></div>
+    </main>
+</body>
+
+</html>

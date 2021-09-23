@@ -1,15 +1,25 @@
 const bookList = document.getElementById(`bookList`);
 
-let myLibrary = [];
+let myLibrary = (!localStorage.getItem('localLibrary')) ? []
+                : JSON.parse(localStorage.getItem('localLibrary'));
+
+window.onload = () => {
+    updateScreenLibrary();
+    updateCounter();
+}
 
 starter();
 
 function starter() {
     const addBookButton = document.querySelector(`[type="submit"]`);
     const clearData = document.getElementById('clearData');
+    const cancelClear = document.getElementById('cancel');
+    const confirmClear = document.getElementById('confirm');
 
     addBookButton.addEventListener('click', addBookToLibrary);
-    clearData.addEventListener('click', clearPressed);
+    clearData.addEventListener('click', toggle);
+    cancelClear.addEventListener('click', toggle);
+    confirmClear.addEventListener('click', clearPressed);
 }
 
 function Book(title, author, pages, readStatus) {
@@ -34,7 +44,7 @@ function getBookInfo(e) {
     
     const titleInput = document.querySelector(`[placeholder="Title"]`);
     const authorInput = document.querySelector(`[placeholder="Author"]`);
-    const pagesInput = document.querySelector(`[placeholder="Pages"]`);
+    const pagesInput = document.querySelector(`[placeholder="Pages/Volumes"]`);
     const readCheckbox = document.querySelector(`[type="checkbox"]`);
     
     const form = document.querySelector('form');
@@ -73,13 +83,14 @@ function checkDuplicate(title, author) {
 
 function updateScreenLibrary() {
     clearScreen();
-
+    
     for(let book of myLibrary) 
-        createBook(book);
+    createBook(book);
 }
 
 function clearScreen() {
     bookList.innerHTML = ``;
+    localStorage.setItem('localLibrary', JSON.stringify(myLibrary));
 }
 
 function createBook(bookFromLibrary) {
@@ -99,7 +110,7 @@ function createBook(bookFromLibrary) {
     bookStats.classList.add('bookContent', 'bookInfo');
     title.textContent = `${bookFromLibrary.title}`;
     author.textContent = `- ${bookFromLibrary.author}`;
-    pages.textContent = `${bookFromLibrary.pages} pages`;
+    pages.textContent = `${bookFromLibrary.pages} pages/volumes`;
 
     bookOptions.classList.add('bookContent');
 
@@ -155,10 +166,16 @@ function removeBook(e) {
     updateCounter();
 }
 
+function toggle() {
+    const clearPopup = document.getElementById('clearPopup');
+    clearPopup.classList.toggle('active');
+}
+
 function clearPressed() {
     clearScreen();
     myLibrary = [];
     updateCounter();
+    toggle();
 }
 
 function updateCounter() {
@@ -180,4 +197,6 @@ function updateCounter() {
             booksUnread.textContent = `Books unread: ${unreadCounter}`;
         }
     }
+
+    localStorage.setItem('localLibrary', JSON.stringify(myLibrary));
 }

@@ -7,7 +7,8 @@
 html {box-sizing: border-box;}
 
 :root {
-    --sidebar-width: 325px; 
+    --sidebar-width: 325px;
+    --popupX: 307px;
 }
 
 body {
@@ -32,7 +33,7 @@ body #sidebar {
 }
 
 #sidebar header {
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     font-size: 25px;
     color: #211f1f;
 }
@@ -98,9 +99,10 @@ form button:hover {
 /* FOOTER */
 body footer {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-top: 6em;
+    width: 60%;
+    justify-content: space-evenly;
+    margin-top: 2em;
     font-size: 20px;
     font-family: 'Poppins', sans-serif;
     color: #211f1f;
@@ -110,6 +112,7 @@ footer #profile {
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    margin-top: 5px;
 }
 
 footer #profile:hover {
@@ -135,13 +138,14 @@ body main {
 }
 
 main #navbar {
+    position: relative;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     font-size: 18px;
 }
 
-#navbar button {
+#navbar #clearData {
     width: 10em;
     padding: 15px 0;
     border: 0px solid transparent;
@@ -154,14 +158,72 @@ main #navbar {
     transition: all .1s ease-in;
 }
 
-#navbar button:hover {
+#navbar #clearData:hover {
     background: #ff9494;
     color: #212121;
     transform: translateY(-0.2rem);
 }
 
-#navbar button:active {
+#navbar #clearData:active {
     transform: translateY(0rem);
+}
+
+#navbar #clearPopup {
+    width: 10em;
+    padding: 10px 0;
+    border: 0px solid transparent;
+    border-radius: 0.325em;
+    background: rgb(51, 50, 51);
+    box-shadow: 4px 8px 4px 0px rgb(0 0 0 / 50%);
+    color: white;
+    position: absolute;
+    font-weight: 600;
+    text-align: center;
+    transform: translate(var(--popupX), 0px);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+
+#navbar #clearPopup.active {
+    transform: translate(var(--popupX), 15px);
+    visibility: visible;
+    opacity: 1;
+    transition: .3s;
+}
+
+#clearPopup #choices {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+
+#clearPopup #confirm {
+    background: #ff9494;
+    color: #da0000;
+    border: 0px solid transparent;
+    border-radius: 0.325em;
+    box-shadow: 4px 3px 4px 0px rgb(0 0 0 / 50%);
+    cursor: pointer;
+    transition: all .1s ease-in;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#clearPopup #cancel {
+    background: #464646;
+    color: #f2aa4c;
+    border: 0px solid transparent;
+    border-radius: 0.325em;
+    cursor: pointer;
+    transition: all .1s ease-in;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#clearPopup #cancel:hover {
+    background: #f2aa4c;
+    color: #211f1f;
 }
 
 main #bookList {
@@ -225,6 +287,7 @@ main #bookList {
     border-bottom: 3px solid red;
 }
 
+#clearPopup #confirm:hover,
 .bookContent .unread:hover {
     background: #ec2d2d;
     color: #212121;
@@ -250,8 +313,124 @@ main #bookList {
     transform: translateY(-0.2rem);
 }
 
+#clearPopup #confirm:active,
 .bookContent .read:active,
 .bookContent .unread:active,
 .bookContent .material-icons:active {
     transform: translateY(0rem);
+}
+
+/* MEDIA QUERIES */
+@media(max-width: 1415px) {
+    :root {--popupX: 195px;}
+
+    main #bookList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 1080px) {
+    :root {--sidebar-width: 200px;}
+
+    #sidebar header {font-size: 15px;}
+
+    #sidebar form {
+        margin-left: 3px;
+        gap: 10px;
+        font-size: 15px
+    }
+
+    form input[type='text'],
+    form input[type='number'] {
+        width: 95%;
+    }
+
+    form button {width: 140px;}
+
+    body footer {
+        flex-direction: column;
+        font-size: 15px;
+    }
+    
+    footer #profile {
+        width: 30px;
+        height: 30px;
+    }
+
+    main #bookList {margin: 2.8em 1.8em;}
+}
+
+@media(max-width: 940px) {
+    :root {--popupX: 160px;}
+    
+    #bookList .book {width: 14em;}
+
+    .book .bookInfo{font-size: 10px;}
+}
+
+@media(max-width: 720px) {
+    :root {--popupX: -25px;}
+
+    main #navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #navbar #clearData {align-self: flex-end;}
+
+    #navbar #clearPopup {
+        transform: translate(var(--popupX), 45px);
+    }
+
+    #navbar #clearPopup.active {
+        transform: translate(var(--popupX), 60px);
+    }
+
+    main #bookList {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #bookList .book {width: 16em;}
+
+    .book .bookInfo{font-size: 12px;}
+}
+
+@media(max-width: 515px) {
+    :root {
+        --sidebar-width: 140px;
+        --popupX: -18px;
+    }
+
+    form input[type='text'],
+    form input[type='number'] {
+        font-size: 10px;
+    }
+
+    form button {
+        width: 85px;
+        padding: 12px 0;
+        font-size: 10px;
+    }
+
+    #navbar #clearData {
+        width: 8em;
+        padding: 11px 0;
+        font-size: 11px;
+    }
+
+    #navbar #clearPopup {
+        width: 13.5em;
+        font-size: 11px;
+        z-index: 1;
+    }
+
+    #clearPopup #confirm {
+        padding: 5px;
+    }
+
+    main #bookList {margin: 1.8em 1em;}
+
+    #bookList .book {width: 11em;}
+
+    .book .bookInfo {font-size: 8px;}
 }

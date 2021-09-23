@@ -28,7 +28,7 @@
                 <p id="forAuthor">* Required</p>
             </div>
             <div>
-                <input type="number" placeholder="Pages" required autocomplete="off">
+                <input type="number" placeholder="Pages/Volumes" required autocomplete="off">
                 <p id="forPages">* Required</p>
             </div>
 
@@ -41,7 +41,7 @@
         </form>
 
         <footer>
-            <p style="margin: 8px;">Code by</p>
+            <p>Code by</p>
             <a target="_blank" href="https://github.com/kru01"><img id="profile" src="images/githubPic.jpg"></a>
             <a id="profileText" target="_blank" href="https://github.com/kru01">kru01</a>
         </footer>
@@ -51,7 +51,15 @@
         <div id="navbar">
             <p id="booksRead">Books read: 0</p>
             <p id="booksUnread">Books unread: 0</p>
+
             <button id="clearData" type="button">CLEAR DATA</button>
+            <div id="clearPopup">
+                <p>Are you sure ?</p>
+                <div id="choices">
+                    <button id="confirm">DELETE</button>
+                    <button id="cancel">Cancel</button>
+                </div>
+            </div>
         </div>
 
         <div id="bookList"></div>
